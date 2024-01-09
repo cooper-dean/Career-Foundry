@@ -1,4 +1,4 @@
-# This SQL query containing a subquery finds out how many of the top 5 Rockbuster Video customers are based within each country.
+# This SQL created a subquery locates the top 5 customers in any of the top 10 cities who’ve paid the highest total amounts to Rockbuster Video.
 
 With cte (country, "all customer count", "top customers") AS
 (SELECT 
