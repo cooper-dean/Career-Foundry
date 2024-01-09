@@ -1,0 +1,25 @@
+# This SQL query containing a CTE finds out how many of the top 5 Rockbuster Video customers are based within each country.
+
+WITH total_cte AS
+  (SELECT A.customer_id,
+  B.first_name,
+  B.last_name,
+  E.country, 
+  D.city,
+SUM(A.amount) AS total_paid
+FROM payment A
+INNER JOIN customer B ON A.customer_id = B.customer_id
+INNER JOIN address C ON B.address_id = C.address_id
+INNER JOIN city D ON C.city_id = D.city_id
+INNER JOIN country E ON D.country_id = E.country_id
+GROUP BY A.customer_id,
+  A.amount,
+  B.first_name,
+  B.last_name,
+  E.country, 
+  D.city
+HAVING city IN ('Saint-Denis', 'Cape Coral', 'Santa Brbara dOeste', 'Apeldoorn', 'Molodetno', 'Qomsheh', 'London', 'Memphis', 'Richmond Hill', 'Tanza')
+ORDER BY total_paid DESC
+LIMIT 5) 
+SELECT AVG (total_paid) AS average
+FROM total_cte
